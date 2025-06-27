@@ -1,5 +1,68 @@
+// import React from "react";
+// import { useForm } from "react-hook-form";
+// import { Box, Button, TextField, Typography } from "@mui/material";
+// import { useDispatch } from "react-redux";
+// import { login } from "../slices/authSlice.slice";
+// import type { AppDispatch } from "@/common/store";
+
+// interface LoginFormData {
+//   username: string;
+//   password: string;
+// }
+
+
+// export const LoginForm: React.FC = () => {
+//   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
+//     defaultValues: {
+//       username: "",
+//       password: ""
+//     }
+//   });
+//   const dispatch = useDispatch<AppDispatch>();
+
+//   const onSubmit = (data: LoginFormData) => {
+//     dispatch(login(data));
+//   };
+
+//   return (
+//     <Box
+//       component="form"
+//       onSubmit={handleSubmit(onSubmit)}
+//       display="flex"
+//       flexDirection="column"
+//       gap={2}
+//       maxWidth={300}
+//       margin="auto"
+//       mt={10}
+//     >
+//       <Typography variant="h5" textAlign="center">Вход в систему</Typography>
+
+//       <TextField
+//         label="Логин"
+//         {...register("username", { required: true })}
+//         error={!!errors.username}
+//         helperText={errors.username && "Введите логин"}
+//         value={""}
+//       />
+
+//       <TextField
+//         label="Пароль"
+//         type="password"
+//         {...register("password", { required: true })}
+//         error={!!errors.password}
+//         helperText={errors.password && "Введите пароль"}
+//         value={""}
+//       />
+
+//       <Button type="submit" variant="contained">Войти</Button>
+//     </Box>
+//   );
+// };
+
+
+
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { login } from "../slices/authSlice.slice";
@@ -10,12 +73,17 @@ interface LoginFormData {
   password: string;
 }
 
-
 export const LoginForm: React.FC = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
+    defaultValues: {
+      username: "",
+      password: ""
+    }
+  });
+
   const dispatch = useDispatch<AppDispatch>();
 
-  const onSubmit = () => (data: LoginFormData) => {
+  const onSubmit: SubmitHandler<LoginFormData> = (data) => {
     dispatch(login(data));
   };
 
@@ -34,19 +102,17 @@ export const LoginForm: React.FC = () => {
 
       <TextField
         label="Логин"
-        {...register("username", { required: true })}
+        {...register("username", { required: "Введите логин" })}
         error={!!errors.username}
-        helperText={errors.username && "Введите логин"}
-        value={"admin"}
+        helperText={errors.username?.message}
       />
 
       <TextField
         label="Пароль"
         type="password"
-        {...register("password", { required: true })}
+        {...register("password", { required: "Введите пароль" })}
         error={!!errors.password}
-        helperText={errors.password && "Введите пароль"}
-        value={"admin"}
+        helperText={errors.password?.message}
       />
 
       <Button type="submit" variant="contained">Войти</Button>
