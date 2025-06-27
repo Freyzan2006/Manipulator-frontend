@@ -10,28 +10,30 @@ import { HistoryPage } from "@/pages/HistoryPage";
 export interface IRoute {
   path: string;
   element: React.ReactNode;
-  protected: boolean;
+  isProtected: boolean;
+  children?: IRoute[];
 }
 
-export const routes = [
+export const routes: IRoute[] = [
   {
     path: "/auth",
     element: <AuthPage />,
-    protected: false,
+    isProtected: false,
   },
   {
     path: "/",
-    element: <Layout />, // ✅ Layout обёртка
-    protected: true,
+    element: <Layout />,
+    isProtected: true,
     children: [
-      { path: "", element: <HomePage /> },
-      { path: "profile", element: <ProfilePage /> },
-      { path: "history", element: <HistoryPage />},
+      { path: "", element: <HomePage />, isProtected: true },
+      { path: "profile", element: <ProfilePage />, isProtected: true },
+      { path: "history", element: <HistoryPage />, isProtected: true },
     ],
   },
   {
     path: "*",
     element: <Navigate to="/" />,
-    protected: false,
+    isProtected: false,
   },
 ];
+

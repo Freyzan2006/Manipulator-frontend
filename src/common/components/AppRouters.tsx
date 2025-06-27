@@ -2,14 +2,14 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 import type { RootState } from "../store";
-import { routes } from "../config/routes";
+import { routes, type IRoute } from "../config/routes";
 
 
 export const AppRouters: React.FC = () => {
   const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
 
-  const renderRoutes = (routeList: any[]) =>
-    routeList.map(({ path, element, children, protected: isProtected }) => (
+  const renderRoutes = (routeList: IRoute[]) =>
+    routeList.map(({ path, element, children, isProtected }) => (
       <Route
         key={path}
         path={path}

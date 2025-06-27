@@ -5,12 +5,17 @@ import { useDispatch } from "react-redux";
 import { login } from "../slices/authSlice.slice";
 import type { AppDispatch } from "@/common/store";
 
+interface LoginFormData {
+  username: string;
+  password: string;
+}
+
 
 export const LoginForm: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const dispatch = useDispatch<AppDispatch>();
 
-  const onSubmit = (data: any) => {
+  const onSubmit = () => (data: LoginFormData) => {
     dispatch(login(data));
   };
 

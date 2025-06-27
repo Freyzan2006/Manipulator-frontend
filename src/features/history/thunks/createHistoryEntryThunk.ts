@@ -1,29 +1,7 @@
-import type { RootState } from "@/common/store";
+
+import type { Dispatch } from "@reduxjs/toolkit";
 import { addHistoryEntry } from "../slices/historySlice";
 
-// export const createHistoryEntry = (
-//   beforePosition: [number, number],
-//   beforeSamples: string[][],
-//   startedAt: string
-// ) => {
-//   return (dispatch: any, getState: () => RootState) => {
-//     const { command, manipulator } = getState();
-
-//     dispatch(
-//       addHistoryEntry({
-//         id: crypto.randomUUID(),
-//         raw: command.rawCommand,
-//         optimized: command.optimizedCommand,
-//         startedAt,
-//         finishedAt: new Date().toISOString(),
-//         beforePosition,
-//         afterPosition: manipulator.position,
-//         beforeSamples,
-//         afterSamples: JSON.parse(JSON.stringify(manipulator.samples)), // или аналогичное состояние
-//       })
-//     );
-//   };
-// };
 
 type HistoryEntryPayload = {
   id?: string;
@@ -38,7 +16,7 @@ type HistoryEntryPayload = {
 };
 
 export const createHistoryEntry = (entry: HistoryEntryPayload) => {
-  return (dispatch: any) => {
+  return (dispatch: Dispatch) => {
     dispatch(
       addHistoryEntry({
         id: entry.id || crypto.randomUUID(),

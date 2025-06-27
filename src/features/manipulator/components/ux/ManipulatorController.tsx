@@ -12,7 +12,7 @@ export const ManipulatorController: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { executing, speed } = useSelector((state: RootState) => state.manipulator);
 
-    const handleChange = useCallback(() => dispatch(resetPosition()), [dispatch, resetPosition]);
+    const handleChange = useCallback(() => dispatch(resetPosition()), [dispatch]);
 
     return (
         <Box sx ={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
