@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
- 
+
 type ManipulatorState = {
   position: [number, number];
   gridSize: number;
@@ -20,7 +20,9 @@ const initialState: ManipulatorState = {
   executingList: [],
   currentExecutingIndex: 0,
   samples: (() => {
-    const grid = Array(5).fill(null).map(() => Array(5).fill(""));
+    const grid = Array(5)
+      .fill(null)
+      .map(() => Array(5).fill(""));
     grid[0][0] = "+";
     grid[1][2] = "+";
     grid[3][4] = "+";
@@ -33,7 +35,6 @@ const manipulatorSlice = createSlice({
   name: "manipulator",
   initialState,
   reducers: {
-
     move(state, action: PayloadAction<string>) {
       const [x, y] = state.position;
       const cmd = action.payload.toUpperCase();
@@ -85,8 +86,6 @@ const manipulatorSlice = createSlice({
       state.currentExecutingIndex = action.payload;
     },
 
-
-
     takeSample(state) {
       const [x, y] = state.position;
       if (state.samples[x][y] && !state.heldSample) {
@@ -102,16 +101,18 @@ const manipulatorSlice = createSlice({
         state.heldSample = null;
       }
     },
-
-
-
-
   },
 });
 
-export const { move, resetPosition, 
-  setExecuting, setSpeed, addCommandToExecutingList, 
-  setCurrentExecutingIndex, clearExecutingList,
-  takeSample, dropSample
+export const {
+  move,
+  resetPosition,
+  setExecuting,
+  setSpeed,
+  addCommandToExecutingList,
+  setCurrentExecutingIndex,
+  clearExecutingList,
+  takeSample,
+  dropSample,
 } = manipulatorSlice.actions;
 export default manipulatorSlice.reducer;

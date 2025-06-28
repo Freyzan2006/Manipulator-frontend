@@ -9,8 +9,6 @@ type CommandState = {
   optimizedCommand: string;
 };
 
-
-
 const initialState: CommandState = {
   rawCommand: "",
   allowedCommands: [

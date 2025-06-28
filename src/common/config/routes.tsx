@@ -1,11 +1,12 @@
-
-import { AuthPage } from "@/pages/AuthPage";
-import { HomePage } from "@/pages/HomePage";
-import { ProfilePage } from "@/pages/ProfilePage";
 import { Navigate } from "react-router-dom";
-import { Layout } from "../components/Layout";
-import { HistoryPage } from "@/pages/HistoryPage";
 
+import { lazy } from "react";
+
+const AuthPage = lazy(() => import("@/pages/AuthPage"));
+const HomePage = lazy(() => import("@/pages/HomePage"));
+const ProfilePage = lazy(() => import("@/pages/ProfilePage"));
+const HistoryPage = lazy(() => import("@/pages/HistoryPage"));
+const Layout = lazy(() => import("../components/Layout"));
 
 export interface IRoute {
   path: string;
@@ -36,4 +37,3 @@ export const routes: IRoute[] = [
     isProtected: false,
   },
 ];
-

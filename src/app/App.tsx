@@ -1,9 +1,3 @@
-
 import { AppRouters } from "@/common/components/AppRouters";
 
-
-
-
-const App = () => <AppRouters />
-
-export default App;
+export const App = () => <AppRouters />;

@@ -10,5 +10,5 @@ export const getCurrentCommandIndex = (executingList: string[], currentIndex: nu
     if (currentIndex < count) return i;
   }
 
-  return -1; // если всё закончилось
+  return -1;
 };

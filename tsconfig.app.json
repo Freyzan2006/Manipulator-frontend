@@ -23,7 +23,6 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
-
     // Alias
     "baseUrl": ".",
     "paths": {
@@ -31,8 +30,8 @@
       "@features/*": ["src/features/*"],
       "@common/*": ["src/common/*"],
       "@app/*": ["src/app/*"],
-      "@pages/*": ["src/pages/*"],
-    },
+      "@pages/*": ["src/pages/*"]
+    }
   },
   "include": ["src"]
 }

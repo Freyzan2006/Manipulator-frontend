@@ -1,13 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-
 import { AlertReducer } from "@/features/alert";
 import { authReducer } from "@/features/auth";
 import { commandReducer } from "@/features/command";
 import { HistoryReducer } from "@/features/history";
 import { manipulatorReducer } from "@/features/manipulator";
-
-
 
 export const store = configureStore({
   reducer: {
@@ -15,7 +12,7 @@ export const store = configureStore({
     command: commandReducer,
     manipulator: manipulatorReducer,
     history: HistoryReducer,
-    alert: AlertReducer
+    alert: AlertReducer,
   },
 });
 

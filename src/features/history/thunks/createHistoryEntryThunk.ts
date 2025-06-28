@@ -1,7 +1,5 @@
-
 import type { Dispatch } from "@reduxjs/toolkit";
 import { addHistoryEntry } from "../slices/historySlice";
-
 
 type HistoryEntryPayload = {
   id?: string;
@@ -25,4 +23,3 @@ export const createHistoryEntry = (entry: HistoryEntryPayload) => {
     );
   };
 };
-

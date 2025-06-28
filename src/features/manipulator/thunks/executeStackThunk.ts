@@ -1,6 +1,10 @@
-
 import type { AppDispatch, RootState } from "@/common/store";
-import { clearExecutingList, move, setCurrentExecutingIndex, setExecuting } from "../slices/manipulatorSlice";
+import {
+  clearExecutingList,
+  move,
+  setCurrentExecutingIndex,
+  setExecuting,
+} from "../slices/manipulatorSlice";
 import { optimizeCommands } from "@/features/command";
 import { createHistoryEntry } from "@/features/history";
 import { showAlertThunk } from "@/features/alert";
@@ -24,21 +28,13 @@ import { showAlertThunk } from "@/features/alert";
 //     dispatch(move(char));
 //     await new Promise((res) => setTimeout(res, speed));
 
-
-
-    
-
-    
 //   }
-
 
 //   dispatch(createHistoryEntry(beforePosition, beforeSamples, startedAt));
 //   dispatch(setExecuting(false));
 //   dispatch(clearExecutingList());
 
-  
 // };
-
 
 // export const executeStackThunk = () => async (dispatch: AppDispatch, getState: () => RootState) => {
 //   const { executingList, speed } = getState().manipulator;
@@ -84,7 +80,6 @@ import { showAlertThunk } from "@/features/alert";
 //   dispatch(clearExecutingList());
 // };
 
-
 export const executeStackThunk = () => async (dispatch: AppDispatch, getState: () => RootState) => {
   const { executingList, speed } = getState().manipulator;
 
@@ -92,8 +87,7 @@ export const executeStackThunk = () => async (dispatch: AppDispatch, getState: (
 
   dispatch(setExecuting(true));
 
-  console.log(executingList[0])
-
+  let globalIndex = 0;
   for (let cmdIndex = 0; cmdIndex < executingList.length; cmdIndex++) {
     const rawCommand = executingList[cmdIndex];
     const optimizedCommand = optimizeCommands(rawCommand);
@@ -104,9 +98,10 @@ export const executeStackThunk = () => async (dispatch: AppDispatch, getState: (
 
     for (let i = 0; i < optimizedCommand.length; i++) {
       const char = rawCommand[i];
-      dispatch(setCurrentExecutingIndex(i));
+      dispatch(setCurrentExecutingIndex(globalIndex));
       dispatch(move(char));
-      await new Promise((res) => setTimeout(res, speed));
+      await new Promise(res => setTimeout(res, speed));
+      globalIndex++;
     }
 
     const afterSamples = JSON.parse(JSON.stringify(getState().manipulator.samples));
@@ -126,12 +121,9 @@ export const executeStackThunk = () => async (dispatch: AppDispatch, getState: (
       })
     );
   }
+  globalIndex = 0;
 
   dispatch(showAlertThunk());
   dispatch(setExecuting(false));
   dispatch(clearExecutingList());
 };
-
-
-
-

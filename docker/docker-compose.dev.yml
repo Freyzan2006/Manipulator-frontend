@@ -1,0 +1,15 @@
+services:
+  manipulator-ui:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - ../:/app
+      - /app/node_modules
+    working_dir: /app
+    environment:
+      - VITE_DEBUG=true
+      - NODE_ENV=development
+    command: npm run dev

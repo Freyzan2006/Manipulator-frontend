@@ -27,18 +27,13 @@ export const optimizeCommands = (input: string): string => {
       if (pattern === next) {
         // сколько раз повторяется подряд
         let repeats = 2;
-        while (
-          simple.substring(i + repeats * len, i + (repeats + 1) * len) === pattern
-        ) {
+        while (simple.substring(i + repeats * len, i + (repeats + 1) * len) === pattern) {
           repeats++;
         }
 
         if (repeats > 1) {
           const compressed = `${repeats}(${pattern})`;
-          simple =
-            simple.substring(0, i) +
-            compressed +
-            simple.substring(i + repeats * len);
+          simple = simple.substring(0, i) + compressed + simple.substring(i + repeats * len);
           i += compressed.length - 1; // перескочим вперёд
         }
       }
@@ -47,7 +42,6 @@ export const optimizeCommands = (input: string): string => {
 
   return simple;
 };
-
 
 export const expandOptimizedCommand = (cmd: string): string[] => {
   const result: string[] = [];
@@ -62,5 +56,3 @@ export const expandOptimizedCommand = (cmd: string): string[] => {
 
   return result;
 };
-
-

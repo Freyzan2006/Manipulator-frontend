@@ -9,11 +9,12 @@ export const Layout = () => {
     <>
       <NavBar />
       <Box sx={{ padding: 2 }}>
-        <Outlet /> 
+        <Outlet />
       </Box>
-      
 
       <AppSnackbar />
     </>
   );
 };
+
+export default Layout;

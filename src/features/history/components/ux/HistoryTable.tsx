@@ -1,5 +1,6 @@
 import * as React from "react";
 import {
+  Box,
   Paper,
   Table,
   TableBody,
@@ -23,6 +24,36 @@ const columns = [
   { id: "afterSamples", label: "Образцы после", minWidth: 150 },
 ];
 
+const SampleGrid = ({ samples }: { samples: string[][] }) => (
+  <Box
+    display="grid"
+    gridTemplateColumns={`repeat(${samples[0]?.length || 1}, 1em)`}
+    gap="2px"
+    justifyContent="center"
+  >
+    {samples.flatMap((rowLine, i) =>
+      rowLine.map((cell, j) => (
+        <Box
+          key={`${i}-${j}`}
+          sx={{
+            width: "1em",
+            height: "1em",
+            textAlign: "center",
+            border: "1px solid #888",
+            fontSize: "0.75em",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#aaa",
+          }}
+        >
+          {cell}
+        </Box>
+      ))
+    )}
+  </Box>
+);
+
 export function HistoryTable() {
   const history = useSelector((state: RootState) => state.history.entries);
 
@@ -33,94 +64,73 @@ export function HistoryTable() {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
 
-
-
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
+    <Paper sx={{ width: "100%", overflow: "hidden", bgcolor: "#1e1e1e", color: "white" }}>
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader>
           <TableHead>
             <TableRow>
-              {columns.map((col) => (
-                <TableCell key={col.id} style={{ minWidth: col.minWidth }}>
+              {columns.map(col => (
+                <TableCell
+                  key={col.id}
+                  style={{ minWidth: col.minWidth }}
+                  sx={{ backgroundColor: "#2c2c2c", color: "white", fontWeight: "bold" }}
+                  align="center"
+                >
                   {col.label}
                 </TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            {history
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell>{row.raw}</TableCell>
-                  <TableCell>{row.optimized}</TableCell>
-                  <TableCell>{new Date(row.startedAt).toLocaleString()}</TableCell>
-                  <TableCell>{new Date(row.finishedAt).toLocaleString()}</TableCell>
-                  <TableCell>{row.beforePosition.join(", ")}</TableCell>
-                  <TableCell>{row.afterPosition.join(", ")}</TableCell>
+            {history.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => (
+              <TableRow
+                key={row.id}
+                hover
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "#333",
+                  },
+                }}
+              >
+                <TableCell align="center" sx={{ color: "white" }}>
+                  {row.raw}
+                </TableCell>
+                <TableCell align="center" sx={{ color: "white" }}>
+                  {row.optimized}
+                </TableCell>
+                <TableCell align="center" sx={{ color: "white" }}>
+                  {new Date(row.startedAt).toLocaleString()}
+                </TableCell>
+                <TableCell align="center" sx={{ color: "white" }}>
+                  {new Date(row.finishedAt).toLocaleString()}
+                </TableCell>
+                <TableCell align="center" sx={{ color: "white" }}>
+                  {row.beforePosition.join(", ")}
+                </TableCell>
+                <TableCell align="center" sx={{ color: "white" }}>
+                  {row.afterPosition.join(", ")}
+                </TableCell>
 
+                {/* Сетка до */}
+                <TableCell align="center">
+                  <SampleGrid samples={row.beforeSamples} />
+                </TableCell>
 
-                  <TableCell>
-                    <div style={{ display: "grid", gridTemplateColumns: `repeat(${row.beforeSamples[0]?.length || 1}, 1em)`, gap: "2px" }}>
-                      {row.beforeSamples.flatMap((rowLine, i) =>
-                        rowLine.map((cell, j) => (
-                          <div
-                            key={`${i}-${j}`}
-                            style={{
-                              width: "1em",
-                              height: "1em",
-                              textAlign: "center",
-                              border: "1px solid #ccc",
-                              fontSize: "0.8em",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                            }}
-                          >
-                            <div style={{ width: "100%" }}>{cell}</div>
-                          </div>
-                        ))
-                      )}
-                    </div>
-                  </TableCell>
-
-                  <TableCell>
-                    <div style={{ display: "grid", gridTemplateColumns: `repeat(${row.afterSamples[0]?.length || 1}, 1em)`, gap: "2px" }}>
-                      {row.afterSamples.flatMap((rowLine, i) =>
-                        rowLine.map((cell, j) => (
-                          <div
-                            key={`${i}-${j}`}
-                            style={{
-                              width: "1em",
-                              height: "1em",
-                              textAlign: "center",
-                              border: "1px solid #ccc",
-                              fontSize: "0.8em",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                            }}
-                          >
-                            <div style={{ width: "100%" }}>{cell}</div>
-                          </div>
-                        ))
-                      )}
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
+                {/* Сетка после */}
+                <TableCell align="center">
+                  <SampleGrid samples={row.afterSamples} />
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
-
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
@@ -129,6 +139,7 @@ export function HistoryTable() {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        sx={{ color: "white", bgcolor: "#2c2c2c" }}
       />
     </Paper>
   );

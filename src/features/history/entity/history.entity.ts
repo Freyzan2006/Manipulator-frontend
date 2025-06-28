@@ -9,4 +9,3 @@ export interface HistoryEntry {
   beforeSamples: string[][];
   afterSamples: string[][];
 }
-
