@@ -1,62 +1,3 @@
-// import React from "react";
-// import { useForm, type SubmitHandler } from "react-hook-form";
-// import { Box, Button, TextField, Typography } from "@mui/material";
-// import { useDispatch } from "react-redux";
-// import { login } from "../slices/authSlice.slice";
-// import type { AppDispatch } from "@/common/store";
-
-// interface LoginFormData {
-//   username: string;
-//   password: string;
-// }
-
-// export const LoginForm: React.FC = () => {
-//   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
-//     defaultValues: {
-//       username: "admin",
-//       password: "admin"
-//     }
-//   });
-
-//   const dispatch = useDispatch<AppDispatch>();
-
-//   const onSubmit: SubmitHandler<LoginFormData> = (data) => {
-//     dispatch(login(data));
-//   };
-
-//   return (
-//     <Box
-//       component="form"
-//       onSubmit={handleSubmit(onSubmit)}
-//       display="flex"
-//       flexDirection="column"
-//       gap={2}
-//       maxWidth={300}
-//       margin="auto"
-//       mt={10}
-//     >
-//       <Typography variant="h5" textAlign="center">Вход в систему</Typography>
-
-//       <TextField
-//         label="Логин"
-//         {...register("username", { required: "Введите логин" })}
-//         error={!!errors.username}
-//         helperText={errors.username?.message}
-//       />
-
-//       <TextField
-//         label="Пароль"
-//         type="password"
-//         {...register("password", { required: "Введите пароль" })}
-//         error={!!errors.password}
-//         helperText={errors.password?.message}
-//       />
-
-//       <Button type="submit" variant="contained">Войти</Button>
-//     </Box>
-//   );
-// };
-
 import React from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { Box, Button, TextField, Typography, Paper, Avatar } from "@mui/material";
@@ -77,8 +18,8 @@ export const LoginForm: React.FC = () => {
     formState: { errors },
   } = useForm<LoginFormData>({
     defaultValues: {
-      username: "admin",
-      password: "admin",
+      username: "",
+      password: "",
     },
   });
 

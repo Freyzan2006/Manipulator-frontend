@@ -1,5 +1,11 @@
 import { expandOptimizedCommand } from "@/features/command";
 
+/**
+ * Поиск индекса команды в стеке команд, для отслеживания текущей выполняемой команды
+ * @param executingList Стек команд
+ * @param currentIndex Текущий индекс
+ * @returns Индекс команды
+ */
 export const getCurrentCommandIndex = (executingList: string[], currentIndex: number): number => {
   let count = 0;
 

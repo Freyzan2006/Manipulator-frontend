@@ -2,8 +2,19 @@ import { Outlet } from "react-router-dom";
 
 import { Box } from "@mui/material";
 import { NavBar } from "./NavBar";
-import { AppSnackbar } from "@/features/alert";
+import { lazy } from "react";
 
+import { Suspense } from "react";
+import { Loading } from "./Loading";
+
+const AppSnackbar = lazy(() => import("@/features/alert/components/AppSnackbar"));
+
+/**
+ * Для схематического оформления
+ * @component
+ * @name Layout
+ * @returns {JSX.Element}
+ */
 export const Layout = () => {
   return (
     <>
@@ -12,7 +23,9 @@ export const Layout = () => {
         <Outlet />
       </Box>
 
-      <AppSnackbar />
+      <Suspense fallback={<Loading />}>
+        <AppSnackbar />
+      </Suspense>
     </>
   );
 };

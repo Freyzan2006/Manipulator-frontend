@@ -6,6 +6,12 @@ import { commandReducer } from "@/features/command";
 import { HistoryReducer } from "@/features/history";
 import { manipulatorReducer } from "@/features/manipulator";
 
+/**
+ * Store всего приложения
+ * @module
+ * @name store
+ * @returns {Store}
+ */
 export const store = configureStore({
   reducer: {
     auth: authReducer,

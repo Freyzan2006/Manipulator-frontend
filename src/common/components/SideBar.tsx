@@ -25,6 +25,12 @@ const navItems = [
   { text: "История", path: "/history", icon: <HistoryIcon /> },
 ];
 
+/**
+ * Компонент SideBar, левая панель навигации
+ * @component
+ * @name SideBar
+ * @returns {JSX.Element}
+ */
 export const SideBar: React.FC<SideBarProps> = ({ open, onClose }) => {
   return (
     <Drawer anchor="left" open={open} onClose={onClose}>

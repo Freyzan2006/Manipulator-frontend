@@ -9,77 +9,12 @@ import { optimizeCommands } from "@/features/command";
 import { createHistoryEntry } from "@/features/history";
 import { showAlertThunk } from "@/features/alert";
 
-// export const executeStackThunk = () => async (dispatch: AppDispatch, getState: () => RootState) => {
-//   const { executingList, speed } = getState().manipulator;
-
-//   if (!executingList.length) return;
-
-//   const startedAt = new Date().toISOString();
-//   const beforeSamples = JSON.parse(JSON.stringify(getState().manipulator.samples));
-//   const beforePosition = [...getState().manipulator.position] as [number, number];
-
-//   dispatch(setExecuting(true));
-
-//   const allChars = executingList.flatMap(expandOptimizedCommand);
-
-//   for (let i = 0; i < allChars.length; i++) {
-//     const char = allChars[i];
-//     dispatch(setCurrentExecutingIndex(i));
-//     dispatch(move(char));
-//     await new Promise((res) => setTimeout(res, speed));
-
-//   }
-
-//   dispatch(createHistoryEntry(beforePosition, beforeSamples, startedAt));
-//   dispatch(setExecuting(false));
-//   dispatch(clearExecutingList());
-
-// };
-
-// export const executeStackThunk = () => async (dispatch: AppDispatch, getState: () => RootState) => {
-//   const { executingList, speed } = getState().manipulator;
-
-//   if (!executingList.length) return;
-
-//   dispatch(setExecuting(true));
-
-//   const allChars = executingList.flatMap(expandOptimizedCommand);
-
-//   for (let i = 0; i < allChars.length; i++) {
-//     const char = allChars[i];
-//     dispatch(setCurrentExecutingIndex(i));
-
-//     // Сохраняем ДО выполнения команды
-//     const beforeSamples = JSON.parse(JSON.stringify(getState().manipulator.samples));
-//     const beforePosition = [...getState().manipulator.position] as [number, number];
-//     const startedAt = new Date().toISOString();
-
-//     dispatch(move(char));
-//     await new Promise((res) => setTimeout(res, speed));
-
-//     // Сохраняем ПОСЛЕ выполнения
-//     const afterSamples = JSON.parse(JSON.stringify(getState().manipulator.samples));
-//     const afterPosition = [...getState().manipulator.position] as [number, number];
-//     const finishedAt = new Date().toISOString();
-
-//     dispatch(
-//       createHistoryEntry({
-//         raw: char,
-//         optimized: char,
-//         startedAt,
-//         finishedAt,
-//         beforeSamples,
-//         afterSamples,
-//         beforePosition,
-//         afterPosition,
-//       })
-//     );
-//   }
-
-//   dispatch(setExecuting(false));
-//   dispatch(clearExecutingList());
-// };
-
+/**
+ * Thunk для выполнения стека команд которые были добавлены при нажатии на кнопку "Добавить на исполнение"
+ * @function
+ * @name executeStackThunk
+ * @returns {Promise<void>}
+ */
 export const executeStackThunk = () => async (dispatch: AppDispatch, getState: () => RootState) => {
   const { executingList, speed } = getState().manipulator;
 

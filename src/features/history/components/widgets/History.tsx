@@ -1,5 +1,5 @@
 import { Box, Button } from "@mui/material";
-import { HistoryTable } from "../ux/HistoryTable";
+import { HistoryTable } from "./HistoryTable/HistoryTable";
 import { NavLink } from "react-router-dom";
 
 export const History: React.FC = () => {

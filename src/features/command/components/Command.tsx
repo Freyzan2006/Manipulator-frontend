@@ -1,21 +1,3 @@
-// import { CardItem } from "@/common/components/CardItem"
-// import { CommandInput } from "./CommandInput"
-// import { CommandInstructions } from "./CommandInstructions"
-// import { CardSelect } from "@/common/components/CardSelect"
-
-// export const Command: React.FC = () => {
-//     return (
-//         <section>
-//             <CardSelect
-//                 cards={[
-//                     <CardItem><CommandInput /></CardItem>,
-//                     <CardItem><CommandInstructions /></CardItem>,
-//                 ]}
-//             />
-//         </section>
-//     )
-// }
-
 import { CardItem } from "@/common/components/CardItem";
 import { CommandInput } from "./CommandInput";
 import { CommandInstructions } from "./CommandInstructions";
@@ -23,6 +5,11 @@ import { CardSelect } from "@/common/components/CardSelect";
 import { Typography, Box, Divider } from "@mui/material";
 import TerminalIcon from "@mui/icons-material/Terminal";
 
+/**
+ * Компонент бизнес логики Command
+ * CommandInput - для ввода команд
+ * CommandInstructions - справка по командам
+ */
 export const Command: React.FC = () => {
   return (
     <section>
